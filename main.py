@@ -5,20 +5,21 @@ import tkinter as tk
 from tkinter import filedialog as fd
 
 
-def getFiles() -> list[str]:
+def getFiles() -> tuple[str, str]:
     """Ask user to select files to compare"""
     root = tk.Tk()
     root.withdraw()
 
     selected_files: list[str] = []
-    for i in range(2):
+    while len(selected_files) < 2:
         file_path = fd.askopenfilename(
-            title=f"Select file number {i+1}",
+            title=f"Select file number {len(selected_files)+1}",
             filetypes=(("CSV files", "*.csv"),),
         )
-        selected_files.append(file_path)
+        if file_path and file_path not in selected_files:
+            selected_files.append(file_path)
 
-    return selected_files
+    return selected_files[0], selected_files[1]
 
 
 def excelNumberToColumn(col: int) -> str:
@@ -50,8 +51,8 @@ def compareFiles(file1_name: str, file2_name: str) -> None:
 
 def main() -> None:
     """Compare 2 Excel files (Previously converted to CSV)"""
-    files: list[str] = getFiles()
-    compareFiles(*files)  # pylint: disable=E1120
+    files: tuple[str, str] = getFiles()
+    compareFiles(*files)
 
 
 if __name__ == "__main__":
