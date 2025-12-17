@@ -16,7 +16,7 @@ def getFiles() -> tuple[str, str]:
             title=f"Select file number {len(selected_files)+1}",
             filetypes=(("CSV files", "*.csv"),),
         )
-        if file_path not in selected_files:
+        if file_path and file_path not in selected_files:
             selected_files.append(file_path)
 
     return selected_files[0], selected_files[1]
