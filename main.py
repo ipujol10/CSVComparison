@@ -40,7 +40,8 @@ def excelNumberToColumn(col: int) -> str:
 
 def compareFiles(file1_name: str, file2_name: str) -> None:
     """Make the actual comparison"""
-    with open(file1_name, "r", encoding="cp1252") as file1, open(file2_name, "r", encoding="cp1252") as file2:
+    encoding: str = "cp1252"
+    with open(file1_name, "r", encoding=encoding) as file1, open(file2_name, "r", encoding=encoding) as file2:
         reader1 = csv.reader(file1)
         reader2 = csv.reader(file2)
         for i, row in enumerate(zip(reader1, reader2)):
